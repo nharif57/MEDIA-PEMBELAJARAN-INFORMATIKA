@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KELAS PAK ARIF - Media Pembelajaran Informatika IX (Bab 1)</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            dark: '#0B2D5B',
+                            card: '#123B6B',
+                            border: '#00C2FF40',
+                            cyan: '#00C2FF',
+                            purple: '#0A84FF',
+                            emerald: '#10b981',
+                            pink: '#ec4899',
+                        }
+                    },
+                    fontFamily: {
+                        cyber: ['"Orbitron"', 'sans-serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #0B2D5B; color: #f8fafc; }
+        .cyber-card {
+            background: linear-gradient(135deg, rgba(18, 59, 107, 0.95) 0%, rgba(11, 45, 91, 0.9) 100%);
+            border: 1px solid rgba(0, 194, 255, 0.3);
+            backdrop-filter: blur(12px);
+        }
+        .neon-text-cyan { text-shadow: 0 0 15px rgba(0, 194, 255, 0.7); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0B2D5B; }
+        ::-webkit-scrollbar-thumb { background: #00C2FF; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-cyan-500 selection:text-slate-950">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 cyber-card border-b border-cyan-500/30 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between py-3">
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('beranda')">
+                <div class="w-12 h-12 bg-slate-900 p-1.5 rounded-xl border border-cyan-500/30 shadow-lg flex items-center justify-center">
+                    <img src="https://lh3.googleusercontent.com/d/1pOJ2wlrwqc8HRX_-euZZPhE8Bvn9ipCH" alt="Logo" class="w-full h-full object-contain">
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-xl sm:text-2xl font-black font-cyber tracking-wider text-white neon-text-cyan">KELAS PAK ARIF</h1>
+                    <span class="text-xs font-bold text-cyan-400 tracking-widest uppercase">Informatika IX</span>
+                </div>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+                <a href="/" class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 transition text-xs font-bold shadow-md" title="Kembali ke Beranda Utama">
+                    <i data-lucide="home" class="w-4 h-4"></i>
+                    <span class="hidden sm:inline">Beranda Utama</span>
+                </a>
+                <div class="hidden md:flex flex-col text-right">
+                    <span class="text-xs font-semibold text-cyan-400">Arif Nur Hidayat, S.Pd.</span>
+                    <span class="text-[10px] text-slate-400">SMPN 57 Surabaya</span>
+                </div>
+                <button onclick="triggerConfetti()" class="p-2.5 rounded-xl bg-slate-900 border border-cyan-500/30 text-cyan-400 hover:bg-cyan-500/10 transition" title="Cyber Spark">
+                    <i data-lucide="zap" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- LAYOUT -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <aside class="lg:col-span-3">
+            <div class="sticky top-24 cyber-card rounded-2xl p-4 shadow-xl space-y-2 border border-cyan-500/30">
+                <div class="px-3 py-1 text-[11px] font-extrabold uppercase tracking-widest text-cyan-400 neon-text-cyan">Menu Navigasi</div>
+                <button onclick="switchTab('beranda')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="beranda"><i data-lucide="home" class="w-5 h-5 text-cyan-400"></i><span>Beranda</span></button>
+                <button onclick="switchTab('peta')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="peta"><i data-lucide="git-merge" class="w-5 h-5 text-blue-400"></i><span>Peta Konsep</span></button>
+                <button onclick="switchTab('modul')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="modul"><i data-lucide="book-open" class="w-5 h-5 text-pink-400"></i><span>Modul Ajar</span></button>
+                <button onclick="switchTab('materi')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="materi"><i data-lucide="layers" class="w-5 h-5 text-emerald-400"></i><span>Materi Inti</span></button>
+                <button onclick="switchTab('simulasi')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="simulasi"><i data-lucide="cpu" class="w-5 h-5 text-cyan-400"></i><span>Simulasi Interaktif</span></button>
+                <button onclick="switchTab('lkpd')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="lkpd"><i data-lucide="file-spreadsheet" class="w-5 h-5 text-blue-400"></i><span>LKPD Digital</span></button>
+                <button onclick="switchTab('quiz')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="quiz"><i data-lucide="award" class="w-5 h-5 text-pink-400"></i><span>Kuis Berlevel</span></button>
+                <button onclick="switchTab('refleksi')" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-3 rounded-xl font-semibold text-sm transition text-slate-300 hover:bg-cyan-500/10 hover:text-cyan-300" data-target="refleksi"><i data-lucide="smile" class="w-5 h-5 text-emerald-400"></i><span>Refleksi</span></button>
+            </div>
+        </aside>
+
+        <main class="lg:col-span-9 space-y-6">
+            <section id="tab-beranda" class="tab-content cyber-card rounded-2xl p-6 sm:p-10 shadow-2xl space-y-6 border border-cyan-500/30">
+                <h2 class="text-3xl sm:text-5xl font-black font-cyber text-white leading-tight">
+                    BERPIKIR KOMPUTASIONAL DALAM <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">ANALISIS DATA</span>
+                </h2>
+                <p class="text-sm sm:text-base text-slate-300">Media pembelajaran interaktif khusus siswa SMPN 57 Surabaya.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer class="mt-12 py-8 border-t border-cyan-500/30 text-center space-y-1 bg-[#0B2D5B]">
+        <p class="text-sm font-bold text-cyan-400">Media pembelajaran Informatika | Kelas Pak Arif</p>
+        <p class="text-xs font-semibold text-slate-200">Arif Nur Hidayat, S.Pd. | Guru Informatika SMPN 57 Surabaya</p>
+        <p class="text-[10px] font-mono text-cyan-400 tracking-wider">BELAJAR • BERBAGI • BERKEMBANG</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        function triggerConfetti() { confetti({ particleCount: 50, spread: 70, origin: { y: 0.2 } }); }
+        function switchTab(targetId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + targetId)?.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
