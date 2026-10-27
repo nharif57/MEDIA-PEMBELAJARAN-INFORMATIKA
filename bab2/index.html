@@ -789,11 +789,30 @@
         };
 
         // --- MAIN APP ---
-        const App = () => {
+       const App = () => {
             const [activeMenu, setActiveMenu] = useState('peta');
             const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
             const navItems = [
+                { id: 'home', icon: 'fa-home', label: 'Beranda Utama', isExternal: true, link: '/' }, // <ul className="flex flex-col py-4 px-3 space-y-1">
+                                {navItems.map(item => (
+                                    <li key={item.id}>
+                                        <button 
+                                            onClick={() => {
+                                                if(item.isExternal) {
+                                                    window.location.href = item.link;
+                                                } else {
+                                                    setActiveMenu(item.id);
+                                                    setIsMobileMenuOpen(false);
+                                                }
+                                            }}
+                                            className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center ${activeMenu === item.id && !item.isExternal ? 'bg-primary/20 text-primary font-semibold shadow-[inset_4px_0_0_0_#38bdf8]' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}`}
+                                        >
+                                            <i className={`fas ${item.icon} w-6 text-center mr-2`}></i> {item.label}
+                                        </button>
+                                    </li>
+                                ))}
+                            </ul>
                 { id: 'peta', icon: 'fa-sitemap', label: 'Peta Konsep' },
                 { id: 'tujuan', icon: 'fa-bullseye', label: 'Tujuan' },
                 { id: 'konsep', icon: 'fa-brain', label: 'Materi' },
