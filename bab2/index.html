@@ -789,30 +789,14 @@
         };
 
         // --- MAIN APP ---
-       const App = () => {
+       // --- MAIN APP ---
+        const App = () => {
             const [activeMenu, setActiveMenu] = useState('peta');
             const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+            // Daftar Menu Navigasi (Menu pertama diarahkan kembali ke Beranda Utama / Home)
             const navItems = [
-                { id: 'home', icon: 'fa-home', label: 'Beranda Utama', isExternal: true, link: '/' }, // <ul className="flex flex-col py-4 px-3 space-y-1">
-                                {navItems.map(item => (
-                                    <li key={item.id}>
-                                        <button 
-                                            onClick={() => {
-                                                if(item.isExternal) {
-                                                    window.location.href = item.link;
-                                                } else {
-                                                    setActiveMenu(item.id);
-                                                    setIsMobileMenuOpen(false);
-                                                }
-                                            }}
-                                            className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center ${activeMenu === item.id && !item.isExternal ? 'bg-primary/20 text-primary font-semibold shadow-[inset_4px_0_0_0_#38bdf8]' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}`}
-                                        >
-                                            <i className={`fas ${item.icon} w-6 text-center mr-2`}></i> {item.label}
-                                        </button>
-                                    </li>
-                                ))}
-                            </ul>
+                { id: 'home', icon: 'fa-home', label: 'Beranda Utama', isExternal: true, link: '/' },
                 { id: 'peta', icon: 'fa-sitemap', label: 'Peta Konsep' },
                 { id: 'tujuan', icon: 'fa-bullseye', label: 'Tujuan' },
                 { id: 'konsep', icon: 'fa-brain', label: 'Materi' },
@@ -842,7 +826,6 @@
                         <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px]"></div>
                         <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/10 rounded-full blur-[100px]"></div>
                         <div className="absolute top-[40%] left-[60%] w-[20%] h-[20%] bg-emerald-400/5 rounded-full blur-[80px]"></div>
-                        {/* Grid overlay */}
                         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgc3Ryb2tlPSJyZ2JhKDI1NSwgMjU1LCAyNTUsIDAuMDUpIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwaDQwVjBIMHoiLz48cGF0aCBkPSJNMCAwaDQwdjQwSDB6Ii8+PC9nPjwvc3ZnPg==')] opacity-30"></div>
                     </div>
 
@@ -869,10 +852,14 @@
                                 <li key={item.id}>
                                     <button 
                                         onClick={() => {
-                                            setActiveMenu(item.id);
-                                            setIsMobileMenuOpen(false);
+                                            if(item.isExternal) {
+                                                window.location.href = item.link;
+                                            } else {
+                                                setActiveMenu(item.id);
+                                                setIsMobileMenuOpen(false);
+                                            }
                                         }}
-                                        className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center ${activeMenu === item.id ? 'bg-primary/20 text-primary font-semibold shadow-[inset_4px_0_0_0_#38bdf8]' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}`}
+                                        className={`w-full text-left px-4 py-3 rounded-lg transition-all flex items-center ${activeMenu === item.id && !item.isExternal ? 'bg-primary/20 text-primary font-semibold shadow-[inset_4px_0_0_0_#38bdf8]' : 'text-slate-400 hover:bg-slate-800 hover:text-slate-200'}`}
                                     >
                                         <i className={`fas ${item.icon} w-6 text-center mr-2`}></i> {item.label}
                                     </button>
