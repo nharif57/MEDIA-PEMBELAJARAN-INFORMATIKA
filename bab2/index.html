@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KELAS PAK ARIF - Bab 2: Berpikir Komputasional</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#0B2D5B', // Navy Blue Sesuai Brand Board
+                        cardBg: '#123B6B',
+                        primary: '#00C2FF', // Cyan Brand
+                        secondary: '#0A84FF', // Blue Brand
+                        accent: '#c084fc'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for in-browser JSX compilation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <style>
+        body {
+            background-color: #0B2D5B;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+        .glass-card {
+            background: rgba(18, 59, 107, 0.75);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 194, 255, 0.2);
+            border-radius: 1rem;
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #00C2FF, #0A84FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .scratch-block {
+            border-radius: 4px;
+            padding: 8px 12px;
+            color: white;
+            font-weight: bold;
+            font-family: 'Inter', sans-serif;
+            margin-bottom: 2px;
+            display: inline-block;
+            box-shadow: inset 0 -2px 0 rgba(0,0,0,0.2);
+        }
+        .scratch-event { background-color: #ffbf00; color: #333;}
+        .scratch-motion { background-color: #4c97ff; }
+        .scratch-looks { background-color: #9966ff; }
+        .scratch-control { background-color: #ffab19; }
+        .scratch-variable { background-color: #ff8c1a; }
+        .scratch-operator { background-color: #59c059; border-radius: 20px;}
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 8px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0B2D5B; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #00C2FF; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #0A84FF; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        // --- COMPONENTS ---
+
+        // 1. Peta Konsep Component
+        const PetaKonsep = () => (
+            <div className="animate-fade-in">
+                <h2 className="text-3xl font-bold mb-2 text-gradient"><i className="fas fa-sitemap mr-2"></i> Peta Konsep</h2>
+                <p className="text-slate-300 mb-8">Gambaran hierarki materi Berpikir Komputasional dalam Algoritma dan Pemrograman.</p>
+                
+                <div className="flex flex-col items-center space-y-6 overflow-x-auto pb-8">
+                    <div className="bg-gradient-to-r from-blue-600 to-cyan-500 p-4 rounded-xl shadow-lg font-bold text-lg text-center w-72 border border-white/20 text-white">
+                        Berpikir Komputasional dalam Algoritma & Pemrograman
+                    </div>
+                    <div className="h-8 w-1 bg-cyan-400"></div>
+                    <div className="w-full max-w-4xl flex flex-col md:flex-row justify-center items-start md:space-x-8 space-y-8 md:space-y-0 relative">
+                        <div className="hidden md:block absolute top-0 w-1/2 h-1 bg-cyan-400 z-0"></div>
+                        
+                        <div className="flex flex-col items-center z-10 w-full md:w-1/2">
+                            <div className="h-8 w-1 bg-cyan-400 md:hidden"></div>
+                            <div className="bg-slate-800 p-4 rounded-xl font-semibold text-center w-full max-w-xs border border-primary/40 shadow-[0_0_15px_rgba(0,194,255,0.2)] text-white">
+                                Mengembangkan Library dlm Pemrograman Visual Blok
+                            </div>
+                            <div className="h-6 w-1 bg-cyan-400"></div>
+                            <div className="glass-card p-4 w-full max-w-xs space-y-2 text-sm">
+                                <div className="p-2 bg-slate-900/50 rounded border border-slate-700"><i className="fas fa-cube text-primary mr-2"></i>1. Modularisasi Program</div>
+                                <div className="p-2 bg-slate-900/50 rounded border border-slate-700"><i className="fas fa-book text-primary mr-2"></i>2. Library</div>
+                                <div className="p-2 bg-slate-900/50 rounded border border-slate-700"><i className="fas fa-code-branch text-primary mr-2"></i>3. Penggunaan Library</div>
+                            </div>
+                        </div>
+
+                        <div className="flex flex-col items-center z-10 w-full md:w-1/2">
+                            <div className="h-8 w-1 bg-cyan-400 md:hidden"></div>
+                            <div className="bg-slate-800 p-4 rounded-xl font-semibold text-center w-full max-w-xs border border-secondary/40 shadow-[0_0_15px_rgba(10,132,255,0.2)] text-white">
+                                Mengembangkan Visual Blok vs Pemrograman Tekstual
+                            </div>
+                            <div className="h-6 w-1 bg-cyan-400"></div>
+                            <div className="glass-card p-4 w-full max-w-xs space-y-2 text-sm">
+                                <div className="p-2 bg-slate-900/50 rounded border border-slate-700"><i className="fas fa-exchange-alt text-secondary mr-2"></i>1. Pemrograman Visual Blok ke Tekstual</div>
+                                <div className="p-2 bg-slate-900/50 rounded border border-slate-700"><i className="fas fa-search text-secondary mr-2"></i>2. Analisis Pseudocode & Flowchart</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 2. Tujuan Pembelajaran Component
+        const TujuanPembelajaran = () => (
+            <div className="animate-fade-in">
+                <h2 className="text-3xl font-bold mb-2 text-gradient"><i className="fas fa-bullseye mr-2"></i> Tujuan Pembelajaran</h2>
+                <p className="text-slate-300 mb-6">Kompetensi yang dicapai siswa dalam modul ini.</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="glass-card p-6 border-l-4 border-l-primary hover:scale-[1.02] transition-transform duration-300">
+                        <div className="flex items-center mb-3">
+                            <div className="bg-primary/20 p-3 rounded-full mr-4"><i className="fas fa-laptop-code text-primary text-xl"></i></div>
+                            <h3 className="text-xl font-semibold text-white">Pengembangan Artefak Komputasional</h3>
+                        </div>
+                        <p className="text-slate-300 text-sm leading-relaxed">Mampu menganalisis, merancang, mengimplementasi, dan menguji program menggunakan library yang disediakan oleh bahasa pemrograman visual.</p>
+                    </div>
+                    <div className="glass-card p-6 border-l-4 border-l-secondary hover:scale-[1.02] transition-transform duration-300">
+                        <div className="flex items-center mb-3">
+                            <div className="bg-secondary/20 p-3 rounded-full mr-4"><i className="fas fa-language text-secondary text-xl"></i></div>
+                            <h3 className="text-xl font-semibold text-white">Pengenalan Bahasa Tekstual</h3>
+                        </div>
+                        <p className="text-slate-300 text-sm leading-relaxed">Mengenal bahasa pemrograman tekstual (C dan Python) melalui transisi dari bahasa pemrograman visual seperti Scratch dan Blockly.</p>
+                    </div>
+                    <div className="glass-card p-6 border-l-4 border-l-emerald-400 hover:scale-[1.02] transition-transform duration-300 md:col-span-2">
+                        <div className="flex items-center mb-3">
+                            <div className="bg-emerald-400/20 p-3 rounded-full mr-4"><i className="fas fa-project-diagram text-emerald-400 text-xl"></i></div>
+                            <h3 className="text-xl font-semibold text-white">Evaluasi Algoritma</h3>
+                        </div>
+                        <p className="text-slate-300 text-sm leading-relaxed">Dapat mengevaluasi efektivitas pseudocode atau flowchart yang telah dibuat sebagai solusi dari suatu permasalahan, serta merefleksikan bagaimana keduanya membantu merancang solusi sistematis.</p>
+                    </div>
+                </div>
+            </div>
+        );
+
+        // 3. Pemahaman Konsep Component
+        const PemahamanKonsep = () => {
+            const [activeTab, setActiveTab] = useState(0);
+            const materi = [
+                {
+                    title: "Modularisasi",
+                    icon: "fa-cubes",
+                    content: (
+                        <div className="space-y-4 text-slate-300">
+                            <p><strong>Modularisasi Program</strong> adalah memecah program besar menjadi bagian-bagian kecil (modul) yang dapat digunakan kembali lebih dari satu kali.</p>
+                            <div className="bg-slate-900/80 p-4 rounded-lg border border-slate-700">
+                                <h4 className="text-white font-semibold mb-2">Jenis Modul:</h4>
+                                <ul className="list-disc pl-5 space-y-2">
+                                    <li><span className="text-primary font-bold">Function (Fungsi):</span> Mengembalikan nilai / jawaban ke pemanggilnya menggunakan <code>return</code>.</li>
+                                    <li><span className="text-secondary font-bold">Procedure (Prosedur):</span> Menjalankan perintah spesifik tanpa mengembalikan nilai balik.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Library",
+                    icon: "fa-book-open",
+                    content: (
+                        <div className="space-y-4 text-slate-300">
+                            <p><strong>Library (Pustaka)</strong> adalah kumpulan modul program siap pakai yang dirancang untuk mempercepat pengembangan aplikasi.</p>
+                            <p>Keunggulan penggunaan Library:</p>
+                            <ol className="list-decimal pl-5 space-y-1">
+                                <li><strong>Reusability:</strong> Menggunakan kode yang sudah teruji.</li>
+                                <li><strong>Abstraction:</strong> Menyembunyikan kerumitan detail di balik fungsi siap panggil.</li>
+                                <li><strong>Efficiency:</strong> Menghemat waktu penulisan kode.</li>
+                            </ol>
+                        </div>
+                    )
+                },
+                {
+                    title: "Visual vs Tekstual",
+                    icon: "fa-code-compare",
+                    content: (
+                        <div className="space-y-4 text-slate-300">
+                            <p>Pemrograman <strong>Visual Blok</strong> menggunakan sistem seret-lepas (drag-and-drop) yang sangat intuitif untuk pemula. Sedangkan pemrograman <strong>Tekstual</strong> menggunakan sintaks teks manual untuk kontrol penuh sistem.</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                                <div className="bg-slate-900 p-4 rounded-lg">
+                                    <h4 className="text-white font-semibold mb-2 border-b border-slate-700 pb-2">Visual Blok (Scratch)</h4>
+                                    <div className="scratch-block scratch-event">when 🚩 clicked</div><br/>
+                                    <div className="scratch-block scratch-looks">say <span className="bg-white text-black px-2 rounded-full py-0.5 text-sm">Hallo, Informatika!</span></div>
+                                </div>
+                                <div className="bg-slate-900 p-4 rounded-lg font-mono text-sm">
+                                    <h4 className="text-white font-semibold mb-2 border-b border-slate-700 pb-2 font-sans">Tekstual (Python)</h4>
+                                    <span className="text-purple-400">print</span>(<span className="text-green-400">'Hallo, Informatika!'</span>)
+                                </div>
+                            </div>
+                        </div>
+                    )
+                },
+                {
+                    title: "Flowchart",
+                    icon: "fa-project-diagram",
+                    content: (
+                        <div className="space-y-4 text-slate-300">
+                            <p><strong>Flowchart</strong> adalah diagram alir standar yang merepresentasikan urutan logika instruksi dalam algoritma.</p>
+                            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                <div className="flex flex-col items-center bg-slate-900 p-3 rounded text-center border border-slate-700">
+                                    <div className="w-16 h-8 bg-blue-500 rounded-full mb-2 flex items-center justify-center text-xs text-white">Start</div>
+                                    <span className="text-sm font-semibold text-white">Terminator</span>
+                                </div>
+                                <div className="flex flex-col items-center bg-slate-900 p-3 rounded text-center border border-slate-700">
+                                    <div className="w-16 h-8 bg-purple-500 mb-2" style={{clipPath: 'polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%)'}}></div>
+                                    <span className="text-sm font-semibold text-white">I/O Data</span>
+                                </div>
+                                <div className="flex flex-col items-center bg-slate-900 p-3 rounded text-center border border-slate-700">
+                                    <div className="w-16 h-8 bg-emerald-500 mb-2"></div>
+                                    <span className="text-sm font-semibold text-white">Proses</span>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+            ];
+
+            return (
+                <div className="animate-fade-in">
+                    <h2 className="text-3xl font-bold mb-2 text-gradient"><i className="fas fa-brain mr-2"></i> Pemahaman Konsep</h2>
+                    <p className="text-slate-300 mb-6">Eksplorasi materi inti Algoritma dan Pemrograman.</p>
+                    <div className="glass-card flex flex-col md:flex-row overflow-hidden">
+                        <div className="w-full md:w-1/3 bg-slate-900/90 flex flex-col border-r border-slate-700">
+                            {materi.map((item, idx) => (
+                                <button 
+                                    key={idx}
+                                    onClick={() => setActiveTab(idx)}
+                                    className={`p-4 text-left font-semibold transition-colors border-l-4 ${activeTab === idx ? 'bg-slate-800 border-primary text-primary' : 'border-transparent text-slate-400 hover:bg-slate-800/50 hover:text-slate-200'}`}
+                                >
+                                    <i className={`fas ${item.icon} w-6 text-center mr-2`}></i> {item.title}
+                                </button>
+                            ))}
+                        </div>
+                        <div className="w-full md:w-2/3 p-6 min-h-[300px]">
+                            <h3 className="text-2xl font-bold mb-4 text-white">{materi[activeTab].title}</h3>
+                            {materi[activeTab].content}
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 4. LKPD Component
+        const LKPD = () => {
+            const [msg1, setMsg1] = useState("");
+            const [msg2, setMsg2] = useState("");
+            
+            const handleDebug1 = (e) => {
+                e.preventDefault();
+                setMsg1("Luar biasa! Modul sudah mengembalikan nilai dengan benar menggunakan return.");
+                setTimeout(() => setMsg1(""), 4000);
+            };
+
+            const handleDebug2 = (e) => {
+                e.preventDefault();
+                setMsg2("Tepat sekali! Kata kunci 'def' digunakan untuk mendefinisikan fungsi di Python.");
+                setTimeout(() => setMsg2(""), 4000);
+            };
+
+            return (
+                <div className="animate-fade-in space-y-6">
+                    <h2 className="text-3xl font-bold text-gradient"><i className="fas fa-users-cog mr-2"></i> LKPD Digital</h2>
+                    <p className="text-slate-300">Analisis dan temukan solusi debugging pada kasus pemrograman berikut.</p>
+                    
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <div className="glass-card p-6 border-t-4 border-t-red-500">
+                            <h3 className="text-xl font-bold mb-2 text-white"><i className="fas fa-bug text-red-400 mr-2"></i>Kasus 1: Bug Modularisasi</h3>
+                            <p className="text-sm text-slate-300 mb-4">Modul "hitungLuas" tidak mengembalikan nilai. Apa sintaks yang kurang?</p>
+                            
+                            <div className="bg-slate-900 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4 border border-slate-700">
+                                <span className="text-purple-400">def</span> <span className="text-blue-400">hitungLuas</span>(p, l):<br/>
+                                &nbsp;&nbsp;luas = p * l<br/>
+                                &nbsp;&nbsp;<span className="text-slate-500 italic"># Tambahkan return di sini</span>
+                            </div>
+
+                            <form onSubmit={handleDebug1} className="space-y-3">
+                                <input type="text" required placeholder="Ketik: return luas" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white text-xs focus:outline-none focus:border-primary" />
+                                <button type="submit" className="bg-primary hover:bg-sky-400 text-slate-950 font-bold py-2 px-4 rounded w-full transition-colors text-xs">Cek Jawaban</button>
+                                {msg1 && <div className="text-emerald-400 text-xs font-bold mt-1"><i className="fas fa-check-circle mr-1"></i>{msg1}</div>}
+                            </form>
+                        </div>
+
+                        <div className="glass-card p-6 border-t-4 border-t-yellow-500">
+                            <h3 className="text-xl font-bold mb-2 text-white"><i className="fas fa-code text-yellow-400 mr-2"></i>Kasus 2: Translasi Kode</h3>
+                            <p className="text-sm text-slate-300 mb-4">Kata kunci apa yang hilang saat mendefinisikan fungsi di Python?</p>
+                            
+                            <div className="bg-slate-900 p-4 rounded-lg font-mono text-xs text-slate-300 mb-4 border border-slate-700">
+                                <span className="bg-red-500/20 text-red-300 px-1">_____</span> <span className="text-blue-400">sapaan</span>(nama):<br/>
+                                &nbsp;&nbsp;<span className="text-purple-400">print</span>(<span className="text-green-400">"Hallo "</span> + nama)
+                            </div>
+
+                            <form onSubmit={handleDebug2} className="space-y-3">
+                                <input type="text" required placeholder="Ketik: def" className="w-full bg-slate-900 border border-slate-700 rounded p-2 text-white text-xs focus:outline-none focus:border-primary" />
+                                <button type="submit" className="bg-yellow-500 hover:bg-yellow-400 text-slate-950 font-bold py-2 px-4 rounded w-full transition-colors text-xs">Cek Jawaban</button>
+                                {msg2 && <div className="text-emerald-400 text-xs font-bold mt-1"><i className="fas fa-check-circle mr-1"></i>{msg2}</div>}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            );
+        };
+
+        // 5. Simulasi Component
+        const Simulasi = () => {
+            const [simTab, setSimTab] = useState('scratch');
+            const [k1, setK1] = useState(4);
+            const [k2, setK2] = useState(5);
+            const [k3, setK3] = useState(15);
+            const [scratchOut, setScratchOut] = useState('...');
+            
+            const runScratchSim = () => {
+                const x = (Number(k3) + Number(k2)) / Number(k1);
+                setScratchOut(`Nilai x adalah ${x}`);
+            };
+
+            return (
+                <div className="animate-fade-in space-y-6">
+                    <h2 className="text-3xl font-bold text-gradient"><i className="fas fa-play-circle mr-2"></i> Simulasi Interaktif</h2>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        <button onClick={()=>setSimTab('scratch')} className={`px-4 py-2 rounded-xl text-xs font-bold ${simTab==='scratch' ? 'bg-primary text-slate-950' : 'bg-slate-800 text-slate-300'}`}>1. Persamaan Linier</button>
+                        <button onClick={()=>setSimTab('code')} className={`px-4 py-2 rounded-xl text-xs font-bold ${simTab==='code' ? 'bg-primary text-slate-950' : 'bg-slate-800 text-slate-300'}`}>2. Visual vs Tekstual</button>
+                    </div>
+
+                    <div className="glass-card p-6 min-h-[350px]">
+                        {simTab === 'scratch' && (
+                            <div className="space-y-4 animate-fade-in">
+                                <h3 className="text-lg font-bold text-white border-b border-slate-700 pb-2">Simulasi Blok Scratch</h3>
+                                <div className="grid md:grid-cols-2 gap-6 mt-4">
+                                    <div>
+                                        <div className="scratch-block scratch-looks bg-purple-500 mb-2 block text-xs">define hitung (k1) (k2) (k3)</div>
+                                        <div className="scratch-block scratch-variable ml-4 block text-xs">set [x] to <span className="scratch-block scratch-operator mx-1"> (k3 + k2) / k1 </span></div>
+                                        <div className="mt-4 flex flex-col space-y-2 max-w-xs text-xs">
+                                            <label>K1:</label><input type="number" value={k1} onChange={e=>setK1(e.target.value)} className="bg-slate-900 text-white p-1.5 rounded border border-slate-700" />
+                                            <label>K2:</label><input type="number" value={k2} onChange={e=>setK2(e.target.value)} className="bg-slate-900 text-white p-1.5 rounded border border-slate-700" />
+                                            <label>K3:</label><input type="number" value={k3} onChange={e=>setK3(e.target.value)} className="bg-slate-900 text-white p-1.5 rounded border border-slate-700" />
+                                        </div>
+                                        <button onClick={runScratchSim} className="mt-4 bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-4 py-2 rounded-xl font-bold text-xs shadow">Jalankan Simulasi</button>
+                                    </div>
+                                    <div className="bg-slate-900 rounded-xl p-4 border border-slate-700 flex items-center justify-center relative min-h-[200px]">
+                                        {scratchOut !== '...' && <div className="bg-primary text-slate-950 p-3 rounded-xl font-bold text-xs shadow absolute top-4 right-4">{scratchOut}</div>}
+                                        <i className="fas fa-cat text-6xl text-primary opacity-60"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {simTab === 'code' && (
+                            <div className="space-y-4 animate-fade-in">
+                                <h3 className="text-lg font-bold text-white border-b border-slate-700 pb-2">Perbandingan Kode</h3>
+                                <div className="grid md:grid-cols-2 gap-4 text-xs font-mono">
+                                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                                        <div className="text-primary font-bold mb-2">Visual (Scratch)</div>
+                                        <div className="scratch-block scratch-event block">when 🚩 clicked</div>
+                                        <div className="scratch-block scratch-looks ml-4 block">say Hello!</div>
+                                    </div>
+                                    <div className="bg-slate-900 p-4 rounded-xl border border-slate-700">
+                                        <div className="text-secondary font-bold mb-2">Tekstual (Python)</div>
+                                        <span className="text-purple-400">print</span>(<span className="text-green-400">"Hello!"</span>)
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        };
+
+        // 6. Gamifikasi Quiz Component
+        const Gamifikasi = () => {
+            const [gameState, setGameState] = useState('start');
+            const [groupName, setGroupName] = useState('');
+            const [score, setScore] = useState(0);
+            const [currentQ, setCurrentQ] = useState(0);
+
+            const questions = [
+                { q: "Apa nama modul yang mengembalikan nilai menggunakan 'return'?", options: ["Procedure", "Function", "Variable", "Loop"], ans: 1 },
+                { q: "Simbol flowchart untuk percabangan/keputusan adalah...", options: ["Persegi Panjang", "Belah Ketupat", "Lingkaran", "Jajar Genjang"], ans: 1 },
+                { q: "Kata kunci definisi fungsi di Python adalah...", options: ["def", "function", "fun", "define"], ans: 0 }
+            ];
+
+            const startGame = (e) => {
+                e.preventDefault();
+                if(!groupName) return;
+                setScore(0);
+                setCurrentQ(0);
+                setGameState('play');
+            };
+
+            const handleAnswer = (idx) => {
+                if(idx === questions[currentQ].ans) setScore(s => s + 100);
+                if(currentQ + 1 < questions.length) {
+                    setCurrentQ(c => c + 1);
+                } else {
+                    setGameState('end');
+                }
+            };
+
+            return (
+                <div className="animate-fade-in space-y-6 max-w-xl mx-auto">
+                    <h2 className="text-3xl font-bold text-gradient text-center"><i className="fas fa-trophy text-yellow-400 mr-2"></i> Battle Quiz</h2>
+                    
+                    {gameState === 'start' && (
+                        <div className="glass-card p-6 text-center">
+                            <h3 className="text-xl font-bold mb-4 text-white">Uji Pemahaman Kelompok</h3>
+                            <form onSubmit={startGame} className="space-y-4">
+                                <input type="text" value={groupName} onChange={e=>setGroupName(e.target.value)} required placeholder="Nama Kelompok..." className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-center text-sm focus:outline-none focus:border-primary" />
+                                <button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary text-slate-950 font-bold py-3 rounded-xl text-sm shadow">Mulai Kuis 🚀</button>
+                            </form>
+                        </div>
+                    )}
+
+                    {gameState === 'play' && (
+                        <div className="glass-card p-6 text-center space-y-4">
+                            <div className="flex justify-between text-xs text-slate-300">
+                                <span>Kelompok: {groupName}</span>
+                                <span className="text-primary font-bold">Soal {currentQ + 1} / {questions.length}</span>
+                            </div>
+                            <h3 className="text-lg font-bold text-white my-4">{questions[currentQ].q}</h3>
+                            <div className="grid grid-cols-1 gap-2">
+                                {questions[currentQ].options.map((opt, i) => (
+                                    <button key={i} onClick={() => handleAnswer(i)} className="bg-slate-900 hover:bg-primary hover:text-slate-950 border border-slate-700 p-3 rounded-xl text-xs font-semibold transition">{opt}</button>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
+                    {gameState === 'end' && (
+                        <div className="glass-card p-6 text-center space-y-4">
+                            <h3 className="text-2xl font-bold text-white">Kuis Selesai!</h3>
+                            <p className="text-slate-300 text-sm">Skor Akhir Kelompok {groupName}:</p>
+                            <div className="text-4xl font-mono text-primary font-bold">{score} Pts</div>
+                            <button onClick={()=>setGameState('start')} className="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold py-2 px-4 rounded-xl">Main Lagi</button>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // 7. Refleksi Component
+        const Refleksi = () => {
+            const [submitted, setSubmitted] = useState(false);
+            return (
+                <div className="animate-fade-in space-y-6 max-w-xl mx-auto">
+                    <h2 className="text-3xl font-bold text-gradient text-center"><i className="fas fa-star text-yellow-400 mr-2"></i> Refleksi Siswa</h2>
+                    {!submitted ? (
+                        <div className="glass-card p-6 space-y-4">
+                            <label className="block text-xs font-semibold text-slate-300">Bagaimana kesan dan pesan belajarmu hari ini?</label>
+                            <textarea rows="3" required className="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white text-xs focus:outline-none focus:border-primary" placeholder="Tuliskan refleksimu..."></textarea>
+                            <button onClick={()=>setSubmitted(true)} className="w-full bg-gradient-to-r from-primary to-secondary text-slate-950 font-bold py-3 rounded-xl text-xs shadow">Kirim Refleksi ✨</button>
+                        </div>
+                    ) : (
+                        <div className="glass-card p-6 text-center space-y-2">
+                            <i className="fas fa-check-circle text-4xl text-emerald-400"></i>
+                            <h3 className="text-xl font-bold text-white">Terima Kasih!</h3>
+                            <p className="text-xs text-slate-300">Refleksimu telah tersimpan dengan baik.</p>
+                        </div>
+                    )}
+                </div>
+            );
+        };
+
+        // --- MAIN APP ---
+        const App = () => {
+            const [activeMenu, setActiveMenu] = useState('peta');
+            const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+            const navItems = [
+                { id: 'home', icon: 'fa-home', label: 'Beranda Utama', isExternal: true, link: '/' },
+                { id: 'peta', icon: 'fa-sitemap', label: 'Peta Konsep' },
+                { id: 'tujuan', icon: 'fa-bullseye', label: 'Tujuan' },
+                { id: 'konsep', icon: 'fa-brain', label: 'Materi' },
+                { id: 'lkpd', icon: 'fa-users-cog', label: 'LKPD' },
+                { id: 'simulasi', icon: 'fa-play-circle', label: 'Simulasi' },
+                { id: 'quiz', icon: 'fa-gamepad', label: 'Gamifikasi' },
+                { id: 'refleksi', icon: 'fa-star', label: 'Refleksi' },
+            ];
+
+            const renderContent = () => {
+                switch(activeMenu) {
+                    case 'peta': return <PetaKonsep />;
+                    case 'tujuan': return <TujuanPembelajaran />;
+                    case 'konsep': return <PemahamanKonsep />;
+                    case 'lkpd': return <LKPD />;
+                    case 'simulasi': return <Simulasi />;
+                    case 'quiz': return <Gamifikasi />;
+                    case 'refleksi': return <Refleksi />;
+                    default: return <PetaKonsep />;
+                }
+            };
+
+            return (
+                <div className="min-h-screen flex flex-col md:flex-row relative">
+                    {/* Background Tech Glows */}
+                    <div className="fixed inset-0 z-[-1] bg-darkBg overflow-hidden pointer-events-none">
+                        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/10 rounded-full blur-[100px]"></div>
+                        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-secondary/10 rounded-full blur-[100px]"></div>
+                    </div>
+
+                    {/* Mobile Header */}
+                    <div className="md:hidden bg-slate-900/90 backdrop-blur border-b border-slate-800 p-4 flex justify-between items-center sticky top-0 z-50">
+                        <div className="flex items-center space-x-2">
+                            <div className="w-8 h-8 bg-slate-800 p-1 rounded-lg border border-primary/30 flex items-center justify-center">
+                                <img src="https://lh3.googleusercontent.com/d/1pOJ2wlrwqc8HRX_-euZZPhE8Bvn9ipCH" alt="Logo" className="w-full h-full object-contain" />
+                            </div>
+                            <span className="font-bold text-sm text-gradient">KELAS PAK ARIF</span>
+                        </div>
+                        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-white p-2">
+                            <i className={`fas ${isMobileMenuOpen ? 'fa-times' : 'fa-bars'} text-xl`}></i>
+                        </button>
+                    </div>
+
+                    {/* Sidebar Navigation */}
+                    <nav className={`${isMobileMenuOpen ? 'block' : 'hidden'} md:block w-full md:w-64 bg-slate-900/95 backdrop-blur md:bg-slate-900/60 border-b md:border-b-0 md:border-r border-slate-800 md:h-screen md:sticky md:top-0 z-40 custom-scrollbar overflow-y-auto`}>
+                        <div className="p-6 hidden md:block border-b border-slate-800">
+                            <div className="flex items-center space-x-3 mb-2">
+                                <div className="w-10 h-10 bg-slate-800 p-1 rounded-xl border border-primary/30 flex items-center justify-center shadow">
+                                    <img src="https://lh3.googleusercontent.com/d/1pOJ2wlrwqc8HRX_-euZZPhE8Bvn9ipCH" alt="Logo" className="w-full h-full object-contain" />
+                                </div>
+                                <h1 className="font-bold text-base text-gradient leading-tight">
+                                    KELAS PAK ARIF
+                                </h1>
+                            </div>
+                            <p className="text-[10px] text-cyan-400 font-mono tracking-widest uppercase">Informatika Kelas IX</p>
+                        </div>
+                        <ul className="flex flex-col py-4 px-3 space-y-1">
+                            {navItems.map(item => (
+                                <li key={item.id}>
+                                    <button 
+                                        onClick={() => {
+                                            if(item.isExternal) {
+                                                window.location.href = item.link;
+                                            } else {
+                                                setActiveMenu(item.id);
+                                                setIsMobileMenuOpen(false);
+                                            }
+                                        }}
+                                        className={`w-full text-left px-4 py-3 rounded-xl transition-all flex items-center text-xs font-semibold ${activeMenu === item.id && !item.isExternal ? 'bg-primary/20 text-primary shadow-[inset_4px_0_0_0_#00C2FF]' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+                                    >
+                                        <i className={`fas ${item.icon} w-6 text-center mr-2 text-sm`}></i> {item.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+
+                    {/* Main Content Area */}
+                    <main className="flex-1 p-6 md:p-10 lg:p-12 overflow-x-hidden min-h-[calc(100vh-60px)] md:min-h-screen pb-12 flex flex-col justify-between">
+                        <div className="max-w-5xl mx-auto w-full">
+                            {renderContent()}
+                        </div>
+                        
+                        {/* Footer Developer Info */}
+                        <footer className="max-w-5xl mx-auto w-full mt-24 pt-8 border-t border-slate-800/80 text-center text-slate-400 text-xs space-y-1">
+                            <p className="font-bold text-slate-300">
+                                Arif Nur Hidayat, S.Pd. | Guru Informatika SMPN 57 Surabaya
+                            </p>
+                            <p className="text-[10px] font-mono text-cyan-400 tracking-wider">
+                                BELAJAR • BERBAGI • BERKEMBANG
+                            </p>
+                            <p className="text-[10px] text-slate-500 pt-2 font-mono">
+                                Copyright &copy; 2026 KELAS PAK ARIF. All rights reserved.
+                            </p>
+                        </footer>
+                    </main>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
